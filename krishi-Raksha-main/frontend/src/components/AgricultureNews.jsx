@@ -29,7 +29,7 @@ function AgricultureNews() {
   ];
 
   const carouselStyle = {
-    maxWidth: '800px',
+    maxWidth: '800px',//800px was there
     margin: 'auto',
     paddingTop: '20px',
   };

@@ -1,29 +1,44 @@
-import React, { useState } from 'react';
-import { Navbar as BootstrapNavbar, Nav, Container, Button } from 'react-bootstrap';
+import React, { useState, useRef } from 'react';
+import { Navbar as BootstrapNavbar, Nav, Container, Button, Card, Spinner } from 'react-bootstrap';
 import Navbar from '../components/Navbar';
-import SelectCrop from '../components/SelectCrop';
 import DragAndDrop from '../components/DragAndDrop';
 import AgricultureNews from '../components/AgricultureNews';
 
 const Footer = () => (
-  <footer
-    className="py-3 mt-5 shadow-lg"
-    style={{
-      backgroundColor: '#2E4B2D',
-      color: '#F6D55C'
-    }}
-  >
-    <Container className="text-center">
-      <p className="mb-0 fw-semibold">&copy; 2025 Krishi Raksha. All rights reserved.</p>
+  <footer style={{ backgroundColor: '#2E4B2D', color: '#F6D55C' }} className="text-center py-4 mt-5">
+    <Container>
+      <p className="mb-0">&copy; {new Date().getFullYear()} Krishi Raksha. All rights reserved.</p>
     </Container>
   </footer>
 );
 
 const Home = () => {
   const [selectedCrop, setSelectedCrop] = useState('');
+  const [image, setImage] = useState(null);
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleCropSelected = (crop) => {
     setSelectedCrop(crop);
+  };
+
+  const handleImageChange = (file) => {
+    if (file && ['image/jpeg', 'image/png'].includes(file.type)) {
+      setImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleDetect = async () => {
+    setLoading(true);
+    setTimeout(() => {
+      setResult({
+        disease: 'Leaf Blight',
+        confidence: 0.92,
+        description: 'A fungal infection affecting tea leaves.'
+      });
+      setLoading(false);
+    }, 1000);
   };
 
   return (
@@ -44,23 +59,38 @@ const Home = () => {
 
       <AgricultureNews />
 
-      <div className="text-center my-5 p-5 rounded-4 shadow-lg border" style={{ borderColor: '#F6D55C', backgroundColor: '#D0E8D0' }}>
-        <h2 className="fw-bold mb-4 display-5" style={{ color: '#F6D55C' }}>Select Crop for Analysis</h2>
-        <div className="p-4 rounded-3" style={{ backgroundColor: '#2E4B2D' }}>
-          <SelectCrop onCropSelected={handleCropSelected} />
-        </div>
-      </div>
-
       <div className="text-center my-5">
-        <h2 className="fw-bold mb-4" style={{ color: '#F6D55C' }}>Add Image for Analysis</h2>
         <div className="rounded-4 p-5 mb-4 shadow-lg" style={{ backgroundColor: '#D0E8D0', border: '2px solid #F6D55C' }}>
-          <p style={{ color: '#2E4B2D' }}>Drag and drop an image here, or click to select an image</p>
+          <DragAndDrop onImageChange={handleImageChange} />
+          {image && (
+            <img src={image} alt="Preview" className="mt-3 rounded" style={{ maxWidth: '400px' }} />
+          )}
+          <Button
+            style={{ backgroundColor: '#F6D55C', color: '#2E4B2D', border: 'none' }}
+            className="mt-3"
+            onClick={handleDetect}
+            disabled={!image || loading}
+          >
+            {loading ? <Spinner animation="border" size="sm" /> : 'Detect Disease'}
+          </Button>
         </div>
-        <div className="d-flex flex-wrap justify-content-center gap-3">
-          <div className="p-3 rounded-4 border" style={{ backgroundColor: '#2E4B2D', borderColor: '#F6D55C' }}>
-            <DragAndDrop selectedCrop={selectedCrop} />
-          </div>
-        </div>
+
+        {/* Result Section */}
+        {result && (
+          <Card className="mt-5 shadow-lg" style={{ backgroundColor: '#D0E8D0' }}>
+            <Card.Body>
+              <Card.Title className="fw-bold">{result.disease}</Card.Title>
+              <Card.Text>Confidence: {(result.confidence * 100).toFixed(0)}%</Card.Text>
+              <Card.Text>{result.description}</Card.Text>
+              <Button
+                style={{ backgroundColor: '#F6D55C', color: '#2E4B2D', border: 'none' }}
+                href="/severity"
+              >
+                View Severity
+              </Button>
+            </Card.Body>
+          </Card>
+        )}
       </div>
 
       <Footer />

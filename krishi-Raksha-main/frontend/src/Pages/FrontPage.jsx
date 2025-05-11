@@ -134,28 +134,28 @@ const FrontPage = () => {
         <Row className="g-4">
           <Col md={4} className="d-flex">
             <Card className="flex-fill shadow-lg border-0">
-              <Card.Img variant="top" src="/news1.jpeg" style={{ height: '250px', objectFit: 'cover' }} />
+              <Card.Img variant="top" src="/news1.png" style={{ height: '250px', objectFit: 'cover' }} />
               <Card.Body>
-                <Card.Title className="fw-bold">Smart Agriculture</Card.Title>
-                <Card.Text>Get real-time insights and tools to enhance farm productivity sustainably.</Card.Text>
+                <Card.Title className="fw-bold">Early and Accurate Disease Detection</Card.Title>
+                <Card.Text>Krishi Raksha uses advanced image processing and machine learning—especially Convolutional Neural Networks (CNNs)—to detect tea plant diseases like blight, anthracnose, and brown blight early and accurately, minimizing crop damage and ensuring timely interventions.</Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4} className="d-flex">
             <Card className="flex-fill shadow-lg border-0">
-              <Card.Img variant="top" src="/news2.jpeg" style={{ height: '250px', objectFit: 'cover' }} />
+              <Card.Img variant="top" src="/news2.png" style={{ height: '250px', objectFit: 'cover' }} />
               <Card.Body>
-                <Card.Title className="fw-bold">Direct Market Access</Card.Title>
-                <Card.Text>Connect directly with buyers to get fair prices and eliminate intermediaries.</Card.Text>
+                <Card.Title className="fw-bold">Reduced Economic Loss and Improved Productivity</Card.Title>
+                <Card.Text>By identifying diseases early and automating the detection process, Krishi Raksha helps prevent yield loss of up to 30%, directly supporting farmers in increasing crop quality and reducing financial risk.</Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4} className="d-flex">
             <Card className="flex-fill shadow-lg border-0">
-              <Card.Img variant="top" src="/news3.jpeg" style={{ height: '250px', objectFit: 'cover' }} />
+              <Card.Img variant="top" src="/news3.png" style={{ height: '250px', objectFit: 'cover' }} />
               <Card.Body>
-                <Card.Title className="fw-bold">Community Support</Card.Title>
-                <Card.Text>Collaborate with experienced farmers and agricultural experts across regions.</Card.Text>
+                <Card.Title className="fw-bold">Scalable, Automated, and Practical Solution</Card.Title>
+                <Card.Text>Unlike manual inspection methods, Krishi Raksha offers a scalable and automated system that is reliable, less labor-intensive, and suited for real-world agricultural environments—even in resource-constrained areas.</Card.Text>
               </Card.Body>
             </Card>
           </Col>
